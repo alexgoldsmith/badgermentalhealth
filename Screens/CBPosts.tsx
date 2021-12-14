@@ -14,9 +14,14 @@ type Post = {
     NumReplies: Number,
 }
 
+type propType = {
+    navigation: any,
+    route: any,
+}
+
 const styles = getStyles();
 
-const CBPosts = ({navigation, route}) => {
+const CBPosts: React.FC<propType> = ({navigation, route}) => {
     const [posts, setPosts] = useState<Post[]>([])
 
     useEffect(() => {

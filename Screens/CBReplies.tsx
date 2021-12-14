@@ -9,7 +9,12 @@ import { Post, Replies } from '../Interfaces/Interfaces'
 
 const styles = getStyles();
 
-const CBReplies = ({navigation, route}) => {
+type propType = {
+    navigation: any,
+    route: any,
+}
+
+const CBReplies: React.FC<propType> = ({navigation, route}) => {
     const post = route.params.post
     
     const [replies, setReplies] = useState<Replies[]>([])

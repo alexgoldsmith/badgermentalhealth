@@ -13,7 +13,7 @@ type QuizCardType = {
 
 type propType = {
 	navigation: any,
-	quiz: QuizCardType
+	quiz: QuizCardType,
 }
 
 const styles = getStyles();

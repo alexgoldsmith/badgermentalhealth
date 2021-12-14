@@ -4,7 +4,7 @@ import axios from 'axios';
 import url from './getUrl'
 
 
-const getReplies = async (postId) => {
+const getReplies = async (postId: string) => {
 	return await fetch(url + '/replies', {
 		method: 'GET',
 		headers: {
