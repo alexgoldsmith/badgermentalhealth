@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import {TouchableOpacity, View, Text} from 'react-native'
+import {TouchableOpacity, View, Text, ImageBackground} from 'react-native'
 import getStorageData from '../Hooks/getStorageData';
 import setStorageData from '../Hooks/setStorageData';
 import getStyles from '../Styling/Styling';
@@ -11,7 +11,8 @@ const styles = getStyles();
 export default function ViewAssessmentResults({route, navigation}) {
 	const {quiz, scores} = route.params
 
-	const total = scores.reduce((sum:number, score:number) => sum += Math.trunc(score));
+
+	let total: number = scores.reduce((total, score) => total += score)
 
 	useEffect(() => {
 		updateQuizes();
@@ -33,11 +34,23 @@ export default function ViewAssessmentResults({route, navigation}) {
 		await setStorageData(user.email + ':quizes', newQuizScores);
 	}
 
+	let scoreResponse = ''
+	let reachedEnd = false
+
+	quiz.scoreKey.forEach(scorekey => {
+		scorekey = scorekey.split(':')
+		if (total <= parseInt(scorekey[0]) && !reachedEnd) {
+			scoreResponse = scorekey[1];
+			reachedEnd = true;
+		}
+	})
+
+
 	return (
+		<ImageBackground source={require('../assets/field.jpg')} resizeMode="cover" style={[styles.image, {flex: 1}]}> 
 		<View style={[styles.container, {justifyContent: 'flex-start'}]}>
 			<Text style={styles.card}>Your Score for {quiz.title} was {total}!</Text>
-			<Text style={styles.card}>Take another assessment or go back to the home screen to see all your assessment results{quiz.title} was {total}!</Text>
-			<Text style={styles.card}>We are currently in contact with Dr. Ritu to improve our quiz scoring as the algorithm to score them varies from assessment to assessment. More Assessments and meaningful scoring coming in Iteration 3</Text>
+			<Text style={styles.card}>{scoreResponse}</Text>
 			<TouchableOpacity 
 				style={[styles.card, {backgroundColor: 'steelblue'}]}
 				onPress={() => navigation.popToTop()}
@@ -45,5 +58,6 @@ export default function ViewAssessmentResults({route, navigation}) {
 				<Text style={{fontSize: 16, color: 'white'}}>Take Another Assessment</Text>
 			</TouchableOpacity>
 		</View>
+		</ImageBackground>
 	)
 }

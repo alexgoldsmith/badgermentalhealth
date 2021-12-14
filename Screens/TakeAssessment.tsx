@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
-import {ScrollView, Text, View, Button, TouchableHighlight} from 'react-native';
+import {ScrollView, Text, View, Button, TouchableHighlight, ImageBackground} from 'react-native';
 import {Slider} from 'react-native-elements';
+import QuizQuestion from '../Components/QuizQuestion';
+import getStyling from '../Styling/Styling';
 
 type Quiz = {
 	title: string,
@@ -9,29 +11,39 @@ type Quiz = {
 	minPerQuestion: number,
 	maxPerQuestion: number,
 	answerLegend: string[],
+	scoreKey: string[]
 }
+
+class ScoreManager {
+	scores: number[];
+	constructor(questions, min) {
+		this.scores = questions.map(question => min)
+	}
+
+	updateScore(index: number, score: number) {
+		this.scores[index] = score;
+	}
+}
+
+const styles = getStyling();
 
 export default function TakeAssessment({route, navigation}) {
 	const quiz = route.params.quiz;
 
-	const zeros: number[] = []
-	quiz.questions.forEach((question: string) => {zeros.push(quiz.minPerQuestion)})
+	// const scoreOptions: number[] = []
+	// for (let i = quiz.minPerQuestion; i <= quiz.maxPerQuestion; i++) {
+	// 	scoreOptions.push(i)
+	// }
 
-	const scoreOptions: number[] = []
-	for (let i = quiz.minPerQuestion; i <= quiz.maxPerQuestion; i++) {
-		scoreOptions.push(i)
-	}
+	const [scm, setSCM] = useState(new ScoreManager(quiz.questions, quiz.minPerQuestion));
 
-	const [scores, setScores] = useState<number[]>(zeros);
-
-	const updateScore = (index: number, newScore: number) => {
-		let newScores = [...scores];
-		newScores.splice(index, 1, newScore);
-		setScores(newScores);
+	const updateScore = (index, score) => {
+		scm.updateScore(index, score);
 	}
 
 	return (
-		<View style={{backgroundColor: '#1f2f3f', display: 'flex', alignItems: 'center', justifyContent: 'flex-start'}}>
+		<ImageBackground source={require('../assets/field.jpg')} resizeMode="cover" style={[styles.image, {flex: 1}]}> 
+		<View style={styles.container}>
 		<ScrollView>
 			<View style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', marginTop: 15}}>
 				<View style={{width: '90%', backgroundColor: 'white', padding: 20, borderRadius: 10}}>
@@ -48,33 +60,33 @@ export default function TakeAssessment({route, navigation}) {
 						</TouchableHighlight>
 					</View>
 				</View>
+				
 				{quiz.questions.map((question: string, i: number) => {
-					return <View style={{width: '80%', margin: 10, backgroundColor: 'white', padding: 20, borderRadius: 10}} key={i}>
-						<Text style={{fontSize: 18}}>{question}</Text>
-						<Text style={{fontSize: 12, textAlign: 'center', marginTop: 5}}>Answer: {Math.trunc(scores[i])}</Text>
-						<View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly'}}>
-						{scoreOptions.map((option) => {
-							return <Button 
-								onPress={() => {
-									updateScore(i, option);
-								}}
-								title={option.toString()}
-							/>
-						})}
-					</View>
-					</View>
+					return (
+						<QuizQuestion
+							min={quiz.minPerQuestion}
+							max={quiz.maxPerQuestion}
+							question={question}
+							key={i}
+							index={i}
+							updateScore={updateScore}
+						/>
+					)
 				})}
+
 				<TouchableHighlight
 					style={{backgroundColor: 'steelblue', width: 250, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 10, height: 40, marginBottom: 20, marginTop: 10}}
 					onPress={() => {
-						navigation.navigate('ViewAssessmentResuts', {scores: scores, quiz: quiz});
+						navigation.navigate('ViewAssessmentResuts', {scores: scm.scores, quiz: quiz});
 					}}
 				>
 					<Text style={{color: 'white', fontSize: 18}}>Complete Assessment</Text>
 				</TouchableHighlight>
 			</View>
+			<View style={{height: 75}}></View>
 		</ScrollView>
 		</View>
+		</ImageBackground>
 	)
 }
 

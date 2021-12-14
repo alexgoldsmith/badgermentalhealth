@@ -9,6 +9,7 @@ type response = {
 }
 
 const loginUser = async (email: string, password: string): Promise<response> => {
+	console.log("email = ", email)
 	const encoded = base64.encode(email + ':' + password);
 
 	return await axios.get(url + '/login', {

@@ -8,6 +8,8 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@dicebear/adventurer-neutral": "^4.10.1",
+    "@dicebear/avatars": "^4.10.1",
     "@react-native-async-storage/async-storage": "^1.15.9",
     "@react-navigation/drawer": "^6.1.8",
     "@react-navigation/native": "^6.0.6",
@@ -19,8 +21,8 @@
     "react": "17.0.1",
     "react-addons-test-utils": "^15.6.2",
     "react-dom": "17.0.1",
-    "react-native-elements": "^3.4.2",
     "react-native": "^0.66.3",
+    "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-reanimated": "^2.2.3",
     "react-native-safe-area-context": "3.3.2",

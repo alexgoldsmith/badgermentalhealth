@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { TouchableHighlight, Text, View, TextInput, ScrollView} from 'react-native';
+import { TouchableHighlight, Text, View, TextInput, ScrollView, ImageBackground} from 'react-native';
 import { Button } from 'react-native-elements';
 import loginUser from '../Hooks/loginUser'
 import registerUser from '../Hooks/registerUser'
@@ -14,8 +14,9 @@ const styles = getStyles();
 
 const Login = ({ navigation }) => {
 
+	console.log("hello!")
 	useEffect(() => {
-		//loginIfUser();
+		loginIfUser();
 	}, [])
 
 	const loginIfUser = async () => {
@@ -30,10 +31,11 @@ const Login = ({ navigation }) => {
 	const [password, setPassword] = useState('');
 
 	const [status, setStatus] = useState('');
-
+    
 	return (
-		<View style={[styles.container, {justifyContent: 'center', minHeight: 500}] }>
-			<Text style={{color: 'white', fontSize: 32}}>Badger Break</Text>
+		<ImageBackground source={require('../assets/fear.png')} resizeMode="cover" style={styles.image}> 
+		<View style={[styles.container, {minHeight: 500, justifyContent: 'center'}]}> 
+			<Text style={{color: 'white', fontSize: 32, marginBottom: 20}}>Badger Break</Text>
 			{mode === '' &&
 			<>
 				<TouchableHighlight
@@ -53,7 +55,7 @@ const Login = ({ navigation }) => {
 			{mode !== '' &&
 			<>
 				<TextInput
-					onChangeText={setEmail}
+					onChangeText={(email: string) => {setEmail(email.toLowerCase())}}
 					value={email}
 					secureTextEntry={false}
 					placeholder="Email"
@@ -81,7 +83,7 @@ const Login = ({ navigation }) => {
 								var result = await loginUser(email, password)
 							else
 								var result = await registerUser(email, password)
-
+							console.log("hello!")
 							if (result.message !== undefined) {
 								setStatus(result.message);
 								return;
@@ -104,6 +106,7 @@ const Login = ({ navigation }) => {
 				</View>
 			}
 		</View>
+		</ImageBackground>
 	)
 }
 

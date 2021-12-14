@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {View, Text, ScrollView, TouchableOpacity} from 'react-native'
+import {View, Text, ScrollView, TouchableOpacity, ImageBackground} from 'react-native'
 import QuizCard from '../Components/QuizCard'
 import getQuizes from '../Hooks/getQuizes'
 import getStyling from '../Styling/Styling'
@@ -11,6 +11,7 @@ type Quiz = {
 	minPerQuestion: number,
 	maxPerQuestion: number,
 	answerLegend: string[],
+	scoreKey: string[]
 }
 
 const styles = getStyling();
@@ -29,6 +30,7 @@ export default function ViewAssessments({navigation}) {
 	}
 
 	return (
+		<ImageBackground source={require('../assets/field.jpg')} resizeMode="cover" style={[styles.image, {flex: 1}]}> 
 		<View style={styles.container}>
 			<ScrollView>
 				{quizes.length !== 0 && 
@@ -40,5 +42,6 @@ export default function ViewAssessments({navigation}) {
 				}
 			</ScrollView>
 		</View>
+		</ImageBackground>
 	)
 }

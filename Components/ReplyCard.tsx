@@ -1,5 +1,5 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useState } from 'react'
+import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
 import getStyles from '../Styling/Styling'
 import { Post, Replies } from "../Interfaces/Interfaces";
 
@@ -10,17 +10,21 @@ type propType = {
     author: String,
 }
 
-const ReplyCard: React.FC<propType> = ({reply, author}) => {
-
-    const marginR = (reply.Author === author)? 0     : '30%'
-    const marginL = (reply.Author === author)? '30%' :  0
-    const align   = (reply.Author === author)? 'flex-end' : 'flex-start'
-
+const ReplyCard: React.FC<propType> = ({reply}) => {
+    const [likes, setLikes] = useState<number>(parseInt(reply.Likes.toString()));
+    
     return (
-        <View style={[styles.card, {marginRight: marginR, marginLeft: marginL, width: '65%', alignItems: align}]}>
+        <View style={[styles.postCard, {justifyContent: 'flex-end', width: '75%'}]}>
             <Text>{reply.Text}</Text>
-            <Text>Author: {reply.Author}</Text>
-            <Text>Likes: {reply.Likes}</Text>
+            <TouchableOpacity 
+                    style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', width: 50}}
+                    onPress={() => {setLikes(likes + 1)}}
+            >
+                <>
+                    <Image style={styles.like_image} source={require('../assets/like.webp')} /> 
+                    <Text style={{fontSize: 20}}> {likes} </Text>
+                </>
+            </TouchableOpacity>
         </View>
     )
 }

@@ -1,5 +1,5 @@
-import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import { Post } from '../Interfaces/Interfaces'
 import getStyles from '../Styling/Styling'
 
@@ -10,16 +10,28 @@ type propType = {
 }
 
 const FullPost: React.FC<propType> = ({post}) => {
+    const [likes, setLikes] = useState<number>(parseInt(post.Likes.toString()))
+    
+    const increaseLikes = () => {
+        setLikes(likes + 1)
+    }
+
     return (
-        <TouchableOpacity
-            style={[styles.card, {width: '100%'}]}
+        <View
+            style={[styles.postCard, {width: '95%', padding: 20}]}
         >
             <Text style={{fontSize: 24, fontWeight: 'bold'}}>{post.Title}</Text>
             <Text style={{fontSize: 14}}>{post.Text}</Text>
-            <Text>Author: {post.Author}</Text>
-            <Text>Likes: {post.Likes} </Text>
-        </TouchableOpacity>
-        
+            <TouchableOpacity 
+                    style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', width: 50, marginRight: 30}}
+                    onPress={increaseLikes}
+            >
+                <>
+                    <Image style={styles.like_image} source={require('../assets/like.webp')} /> 
+                    <Text style={{fontSize: 20}}> {likes}  </Text>
+                </>
+            </TouchableOpacity>
+        </View>
     )
 }
 

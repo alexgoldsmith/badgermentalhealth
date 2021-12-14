@@ -2,7 +2,7 @@
 
 # To run the project:
 
-1. Clone this repository and the backend repository
+1. Clone this repository and the backend repository (https://github.com/Ryan-Gillespie/bmhbackend)
 2. Open a terminal in the frontend repository
 3. run the command `npm install`
 4.  If you are a tester, checkout the test branch with `git checkout origin/test`

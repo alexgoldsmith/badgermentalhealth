@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { Button, Text, ScrollView, View } from 'react-native'
+import { Button, Text, ScrollView, View, ImageBackground } from 'react-native'
 import PostCard from '../Components/PostsCard'
 import getPosts from  '../Hooks/getPosts'
 import getStyles from '../Styling/Styling'
@@ -30,15 +30,17 @@ const CBPosts: React.FC<propType> = ({navigation, route}) => {
     }, [])
 
     const loadPosts = async () => {
+        setPosts([]);
         const psts = await getPosts();
         setPosts(psts.reverse());
     }
 
     return (
-        <View style={[styles.container, {justifyContent: 'flex-start'}]}>
+		<ImageBackground source={require('../assets/com.jpg')} resizeMode="cover" style={[styles.image, {flex: 1}]}> 
+        <View style={styles.post_container}>
             <View style={{height: 20, width: 30}} />
             <Button onPress={() => {navigation.navigate('Create', {mode: true, post: null})}} title='Create Post' color="steelblue" />
-            <ScrollView>
+            <ScrollView >
                 { 
                     posts.map((post, i)=>{
                         return <PostCard post={post} navigation={navigation} key={i}/>
@@ -46,6 +48,7 @@ const CBPosts: React.FC<propType> = ({navigation, route}) => {
                 }
             </ScrollView>
         </View>
+        </ImageBackground>
     )
 }
 
