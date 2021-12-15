@@ -50,7 +50,7 @@ export default function ViewAssessmentResults({route, navigation}) {
 		<ImageBackground source={require('../assets/field.jpg')} resizeMode="cover" style={[styles.image, {flex: 1}]}> 
 		<View style={[styles.container, {justifyContent: 'flex-start'}]}>
 			<Text style={styles.card}>Your Score for {quiz.title} was {total}!</Text>
-			<Text style={styles.card}>{scoreResponse}</Text>
+			<Text style={styles.card}>You have {scoreResponse}</Text>
 			<TouchableOpacity 
 				style={[styles.card, {backgroundColor: 'steelblue'}]}
 				onPress={() => navigation.popToTop()}

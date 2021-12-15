@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
+import updatePost from '../Hooks/updatePost';
 import { Post } from '../Interfaces/Interfaces'
 import getStyles from '../Styling/Styling'
 
@@ -14,6 +15,12 @@ const FullPost: React.FC<propType> = ({post}) => {
     
     const increaseLikes = () => {
         setLikes(likes + 1)
+        updateLikes(likes + 1)
+    }
+    
+    const updateLikes = (likes) => {
+        post.Likes = likes
+        updatePost(post);
     }
 
     return (

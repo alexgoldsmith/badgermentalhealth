@@ -10,7 +10,7 @@ type Post = {
     Author: String, 
     Text: String, 
     Date: Date, 
-    Likes: Number, 
+    Likes:  number, 
     NumReplies: Number,
 }
 
@@ -37,17 +37,17 @@ const CBPosts: React.FC<propType> = ({navigation, route}) => {
 
     return (
 		<ImageBackground source={require('../assets/com.jpg')} resizeMode="cover" style={[styles.image, {flex: 1}]}> 
-        <View style={styles.post_container}>
-            <View style={{height: 20, width: 30}} />
-            <Button onPress={() => {navigation.navigate('Create', {mode: true, post: null})}} title='Create Post' color="steelblue" />
-            <ScrollView >
-                { 
-                    posts.map((post, i)=>{
-                        return <PostCard post={post} navigation={navigation} key={i}/>
-                    })
-                }
-            </ScrollView>
-        </View>
+            <View style={styles.post_container}>
+                <View style={{height: 20, width: 30}} />
+                <Button onPress={() => {navigation.navigate('Create', {mode: true, post: null})}} title='Create Post' color="steelblue" />
+                <ScrollView >
+                    { 
+                        posts.map((post, i)=>{
+                            return <PostCard post={post} navigation={navigation} key={i}/>
+                        })
+                    }
+                </ScrollView>
+            </View>
         </ImageBackground>
     )
 }

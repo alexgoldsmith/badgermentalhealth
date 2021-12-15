@@ -4,7 +4,7 @@ export interface Post {
     Author: String, 
     Text: String, 
     Date: Date, 
-    Likes: Number, 
+    Likes: number, 
     NumReplies: Number,
 }
 
