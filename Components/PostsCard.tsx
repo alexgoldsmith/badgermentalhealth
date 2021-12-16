@@ -12,7 +12,7 @@ type propType = {
 
 const styles = getStyles();
 
-const PostCard: React.FC<propType> = ({post, navigation}) => {
+const PostsCard: React.FC<propType> = ({post, navigation}) => {
     const [likes, setLikes] = useState<number>(post.Likes)
     //const [likes, setLikes] = useState<number>(parseInt(post.Likes.toString()))
     
@@ -21,7 +21,7 @@ const PostCard: React.FC<propType> = ({post, navigation}) => {
         updateLikes(likes + 1)
     }
     
-    const updateLikes = (likes) => {
+    const updateLikes = (likes: any) => {
         post.Likes = likes
         updatePost(post);
     }
@@ -51,4 +51,4 @@ const PostCard: React.FC<propType> = ({post, navigation}) => {
     )
 }
 
-export default PostCard
+export default PostsCard

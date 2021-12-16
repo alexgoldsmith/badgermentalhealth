@@ -23,9 +23,14 @@ type Post = {
     NumReplies: Number,
 }
 
+type propType = {
+	navigation: any,
+	route: any,
+}
+
 const styles = getStyles();
 
-const CMPost = ({navigation, route}) => {
+const CMPost: React.FC<propType> = ({navigation, route}) => {
     
 	// Mode will be true if we are submitting a post, false if we are submitting a reply
 	const mode = route.params.mode

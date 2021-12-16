@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { Button, Text, ScrollView, View, ImageBackground } from 'react-native'
-import PostCard from '../Components/PostsCard'
+import PostsCard from '../Components/PostsCard'
 import getPosts from  '../Hooks/getPosts'
 import getStyles from '../Styling/Styling'
 
@@ -26,7 +26,7 @@ const CBPosts: React.FC<propType> = ({navigation, route}) => {
 
     useEffect(() => {
 		navigation.addListener('focus', () => loadPosts())
-        loadPosts()
+        loadPosts();
     }, [])
 
     const loadPosts = async () => {
@@ -43,7 +43,7 @@ const CBPosts: React.FC<propType> = ({navigation, route}) => {
                 <ScrollView >
                     { 
                         posts.map((post, i)=>{
-                            return <PostCard post={post} navigation={navigation} key={i}/>
+                            return <PostsCard post={post} navigation={navigation} key={i}/>
                         })
                     }
                 </ScrollView>

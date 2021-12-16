@@ -51,4 +51,4 @@ const CBReplies: React.FC<propType> = ({navigation, route}) => {
     )
 }
 
-export default CBReplies
+export default CBReplies;

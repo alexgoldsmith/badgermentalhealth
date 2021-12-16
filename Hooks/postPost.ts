@@ -1,7 +1,7 @@
 import axios from 'axios';
-import url from './getUrl'
+import url from './getUrl';
 
-const postPost = async (post) => {
+const postPost = async (post: any) => {
 	await fetch(url + '/posts', {
 		method: 'POST',
 		headers: {

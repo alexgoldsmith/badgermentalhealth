@@ -18,7 +18,7 @@ const FullPost: React.FC<propType> = ({post}) => {
         updateLikes(likes + 1)
     }
     
-    const updateLikes = (likes) => {
+    const updateLikes = (likes: any) => {
         post.Likes = likes
         updatePost(post);
     }
